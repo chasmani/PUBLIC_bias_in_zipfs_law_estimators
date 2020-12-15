@@ -1,6 +1,6 @@
 # Bias in Zipf's Law Estimators
 
-Code for the pubication "Bias in Zipf's Law Estimators" by Pilgrim & Hills, 2021. 
+Code for the pubication "Bias in Zipf's Law Estimators" by Pilgrim & Hills (in review).
 
 ### data 
 Data used and generated during the project
