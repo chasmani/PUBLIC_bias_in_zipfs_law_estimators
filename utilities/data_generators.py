@@ -71,7 +71,7 @@ def generate_samples_from_zipf_mandelbrot_law(exponent=1.2, q=10, N=100):
 
 	# We need to genreate more numbers, to get to N. 
 	# Generate a few more than we expect to need, in case we don't get enough
-	N_extra_needed_plus_few_more = ((N/len(x) - 1) * N)*1.2
+	N_extra_needed_plus_few_more = ((N/(len(x)+1) - 1) * N)*1.2
 	while (len(x) < N):
 		x_extra = scipy.stats.zipf.rvs(exponent, loc=loc, size=int(N_extra_needed_plus_few_more))
 		x_extra = x_extra[x_extra>0]
