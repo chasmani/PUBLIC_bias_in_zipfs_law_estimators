@@ -1,0 +1,5 @@
+
+PRIMARY_COLOR = "blue"
+SECONDARY_COLOR = "orange"
+TERTIARY_COLOR = "green"
+LINEWIDTH = 3
