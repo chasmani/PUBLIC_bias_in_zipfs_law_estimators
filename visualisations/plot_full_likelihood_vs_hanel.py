@@ -11,6 +11,8 @@ from utilities.full_likelihood import get_likelihood, get_full_mle, get_full_d_l
 from utilities.hanel_mle import hanel_mle_1a, log_likelihood_with_z, D_likelihood
 from utilities.general_utilities import append_to_csv
 
+from design_scheme import PRIMARY_COLOR, SECONDARY_COLOR, TERTIARY_COLOR, POINT_SIZE, LINEWIDTH
+
 
 def plot_full_likelihood_vs_hanel():
 
@@ -32,12 +34,6 @@ def plot_full_likelihood_vs_hanel():
 
 	lambs = np.linspace(0.1, 2.5, 50)
 
-	
-
-	HANEL_COLOR = "orange"
-	FULL_COLOR = "blue"
-	linewidth=2
-
 
 	plt.subplot(211)
 
@@ -50,14 +46,14 @@ def plot_full_likelihood_vs_hanel():
 		hanel_likelihood = np.exp(log_likelihood_with_z(lamb, n))
 		hanel_likelihoods.append(hanel_likelihood)
 	
-	plt.plot(lambs, full_likelihoods, label="Full Likelihood", color=FULL_COLOR, linewidth=linewidth)
-	plt.plot(lambs, hanel_likelihoods, label="Hanel et al", color=HANEL_COLOR, linewidth=linewidth)
+	plt.plot(lambs, full_likelihoods, label="Full Likelihood", color=PRIMARY_COLOR, linewidth=LINEWIDTH)
+	plt.plot(lambs, hanel_likelihoods, label="Hanel et al", color=SECONDARY_COLOR, linewidth=LINEWIDTH)
 
 	full_mle = get_full_mle(n)
-	plt.axvline(full_mle, color=FULL_COLOR, linewidth=linewidth, linestyle="dashed")
+	plt.axvline(full_mle, color=PRIMARY_COLOR, linewidth=LINEWIDTH, linestyle="dashed")
 
 	hanel_mle = hanel_mle_1a(n)
-	plt.axvline(hanel_mle, color=HANEL_COLOR, linewidth=linewidth, linestyle="dashed")
+	plt.axvline(hanel_mle, color=SECONDARY_COLOR, linewidth=LINEWIDTH, linestyle="dashed")
 
 	plt.yscale("log")
 
@@ -81,14 +77,14 @@ def plot_full_likelihood_vs_hanel():
 	print("Full d likelihoods: ", full_d_likelihoods)
 
 
-	plt.plot(lambs, full_d_likelihoods, label="Full Likelihood", color=FULL_COLOR, linewidth=linewidth)
-	plt.plot(lambs, full_d_hanels, label="Hanel et al", color=HANEL_COLOR, linewidth=linewidth)
+	plt.plot(lambs, full_d_likelihoods, label="Full Likelihood", color=PRIMARY_COLOR, linewidth=LINEWIDTH)
+	plt.plot(lambs, full_d_hanels, label="Hanel et al", color=SECONDARY_COLOR, linewidth=LINEWIDTH)
 
-	plt.axhline(0, linewidth=linewidth, color="lightgray")
+	plt.axhline(0, linewidth=LINEWIDTH, color="lightgray")
 
-	plt.axvline(full_mle, color=FULL_COLOR, linewidth=linewidth, linestyle="dashed")
+	plt.axvline(full_mle, color=PRIMARY_COLOR, linewidth=LINEWIDTH, linestyle="dashed")
 
-	plt.axvline(hanel_mle, color=HANEL_COLOR, linewidth=linewidth, linestyle="dashed")
+	plt.axvline(hanel_mle, color=SECONDARY_COLOR, linewidth=LINEWIDTH, linestyle="dashed")
 
 	print(full_mle)
 
@@ -98,7 +94,7 @@ def plot_full_likelihood_vs_hanel():
 	plt.legend()
 
 
-	plt.savefig("images/likelihood_function_and_differential_full_vs_hanel_b.png")
+	plt.savefig("images/likelihood_function_and_differential_full_vs_hanel_b.png", dpi=300)
 
 	plt.show()
 

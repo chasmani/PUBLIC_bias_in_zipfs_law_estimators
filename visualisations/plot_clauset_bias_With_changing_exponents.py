@@ -9,6 +9,9 @@ import pandas as pd
 import seaborn as sns
 from mpl_toolkits.axes_grid1.inset_locator import inset_axes
 
+from design_scheme import PRIMARY_COLOR, SECONDARY_COLOR, TERTIARY_COLOR, POINT_SIZE, LINEWIDTH
+
+
 def plot_clauset_bias():
 
 	data_filename = ("../data/simulated/clauset_bias_changing_lamb.csv")
@@ -32,14 +35,14 @@ def plot_clauset_bias():
 
 	fig, ax = plt.subplots()
 
-	plt.plot(df["actual_lambda"], df["actual_lambda"], label="y=x", linewidth=3, linestyle="dashed", color="r")
-	plt.plot(df["actual_lambda"], df["mle"], label="MLE", linewidth=3, color="b")
+	plt.plot(df["actual_lambda"], df["actual_lambda"], label="y=x", linewidth=LINEWIDTH, linestyle="dashed", color=TERTIARY_COLOR)
+	plt.plot(df["actual_lambda"], df["mle"], label="MLE", linewidth=LINEWIDTH, color=SECONDARY_COLOR)
 
 
 	plt.xlabel("$\lambda$")
-	plt.ylabel("$\hat{\lambda}$")
+	plt.ylabel("$E(\hat{\lambda})$")
 
-	plt.title("Bias in MLE for Zeta Distributed Rank-Frequency Data\nN={}".format(N))
+	plt.title("Bias in MLE for Zeta Distributed Rank-Frequency Data\nN=100,000")
 
 	plt.legend()
 
@@ -50,14 +53,14 @@ def plot_clauset_bias():
 	axins = inset_axes(ax,  "30%", "40%" ,loc="lower right", borderpad=3)
 
 
-	axins.plot(df["actual_lambda"], df["bias"], linewidth=3, color="b")
+	axins.plot(df["actual_lambda"], df["bias"], linewidth=LINEWIDTH, color=SECONDARY_COLOR)
 	#sns.lineplot(df["actual_lambda"], df["bias"], ax=axins, size=3)
 	
 	axins.set_xlabel('')
 	axins.set_ylabel("Bias")
 
 
-	plt.savefig("images/bias_in_mle_across_lambda_N_{}.png".format(N))
+	plt.savefig("images/bias_in_mle_across_lambda_N_{}.png".format(N), dpi=300)
 
 	plt.show()
 

@@ -5,12 +5,13 @@ import numpy as np
 import scipy.stats
 import matplotlib.pyplot as plt
 
+from design_scheme import PRIMARY_COLOR, SECONDARY_COLOR, TERTIARY_COLOR, POINT_SIZE, LINEWIDTH
+
 
 def plot_from_pickle(pickle_name="../data/simulated/overnight_results_gen_10.pkl"):
 
 	df = pd.read_pickle(pickle_name)
-	sns.kdeplot(data=df, x="exponent", y="q", weights="w", shade=True)
-
+	sns.kdeplot(data=df, x="exponent", y="q", weights="w", shade=True, color=PRIMARY_COLOR)
 
 	exponents = df['exponent'].to_numpy()
 	qs = df['q'].to_numpy()
@@ -39,14 +40,18 @@ def plot_from_pickle(pickle_name="../data/simulated/overnight_results_gen_10.pkl
 	i, j = np.unravel_index(np.nanargmax(results), results.shape)
 	print("Mle is ", exponents[i],qs[j])
 
-	plt.scatter(1.2,4, color="orange", marker="x", s=100, linewidth=3, label="actual")
+	sns.scatterplot(x=[1.2],y=[4], color="white", marker="x", s=POINT_SIZE*2, linewidth=LINEWIDTH+1)
+	sns.scatterplot(x=[1.2],y=[4], color=SECONDARY_COLOR, marker="x", s=POINT_SIZE*1.5, linewidth=LINEWIDTH, label="Actual")
 
-	plt.scatter(exponents[i],qs[j], color="yellow", s=100, linewidth=3, label="mle")
+	sns.scatterplot(x=[exponents[i]],y=[qs[j]], color=TERTIARY_COLOR, s=POINT_SIZE*2, label="Mle")
+
+	plt.xlabel("$\lambda$")
+	plt.ylabel("$q$")
 
 	plt.tight_layout()
 	
 	plt.legend()
-	plt.savefig("images/zipf_mandelbrot_posterior_from_wabc.png")
+	plt.savefig("images/zipf_mandelbrot_posterior_from_wabc.png", dpi=300)
 	
 	plt.show()
 

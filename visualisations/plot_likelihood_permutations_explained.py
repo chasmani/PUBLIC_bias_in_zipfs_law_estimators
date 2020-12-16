@@ -13,6 +13,8 @@ import seaborn as sns
 
 from utilities.probability_distributions import get_probabilities_power_law_finite_event_set
 
+from design_scheme import PRIMARY_COLOR, SECONDARY_COLOR, TERTIARY_COLOR, POINT_SIZE, LINEWIDTH
+
 
 NX_KWARGS = {
 	"node_size":800,
@@ -31,7 +33,9 @@ def plot_prob_dist_mapping_onto_empirical_ranks():
 	lamb = 1.1
 	N = 100
 
-	PALETTE = "deep"
+
+	colors = [PRIMARY_COLOR, SECONDARY_COLOR, TERTIARY_COLOR, PRIMARY_COLOR, SECONDARY_COLOR, TERTIARY_COLOR]
+	PALETTE = sns.color_palette(colors)
 
 	plt.rcParams.update({'font.size': 22})
 	f, axs = plt.subplots(3,1, figsize=(10,10))
@@ -85,7 +89,7 @@ def plot_prob_dist_mapping_onto_empirical_ranks():
 	plt.tight_layout()
 
 
-	plt.savefig("images/emprirical_vs_prob_ranking_and_bipartite_graph_w_6.png")
+	plt.savefig("images/emprirical_vs_prob_ranking_and_bipartite_graph_w_6.png", dpi=300)
 	plt.show()
 
 

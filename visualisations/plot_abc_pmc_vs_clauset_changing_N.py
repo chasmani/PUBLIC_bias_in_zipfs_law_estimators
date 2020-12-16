@@ -7,7 +7,7 @@ import pandas as pd
 import seaborn as sns
 plt.rcParams["figure.figsize"] = (10,4)
 
-from visualisations.design_scheme import LINEWIDTH, PRIMARY_COLOR, SECONDARY_COLOR, TERTIARY_COLOR
+from design_scheme import PRIMARY_COLOR, SECONDARY_COLOR, TERTIARY_COLOR, POINT_SIZE, LINEWIDTH
 
 
 def plot_wabc_vs_clauset_N():
@@ -70,11 +70,11 @@ def plot_wabc_vs_clauset_N():
 
 	# Plots
 	plt.subplot(1,3,1)
-	plt.plot(df["n_data"], df["actual_lambda"], linewidth=LINEWIDTH+2, linestyle="dashed", color=TERTIARY_COLOR)
+	plt.plot(df["n_data"], df["actual_lambda"], linewidth=LINEWIDTH*2, linestyle="dashed", color=TERTIARY_COLOR)
 
-	sns.lineplot(x="n_data", y="mle", data=wabc_df, ci=68, label="WABC-PMC", color=PRIMARY_COLOR, linewidth=LINEWIDTH)
+	sns.lineplot(x="n_data", y="mle", data=wabc_df, ci=68, label="ABC-PMC", color=PRIMARY_COLOR, linewidth=LINEWIDTH)
 
-	sns.lineplot(x="n_data", y="mle", data=clauset_df, ci=68, label="Clauset et al", color=SECONDARY_COLOR, linewidth=LINEWIDTH)
+	sns.lineplot(x="n_data", y="mle", data=clauset_df, ci=68, label="Clauset et al", color=SECONDARY_COLOR, linewidth=LINEWIDTH, linestyle="dashdot")
 	plt.xscale("log")
 	plt.xlabel("$N$")
 	plt.ylabel("$E(\hat{\lambda})$")
@@ -85,7 +85,7 @@ def plot_wabc_vs_clauset_N():
 
 	sns.lineplot(x="n_data", y="bias", data=wabc_df, ci=68, color=PRIMARY_COLOR, linewidth=LINEWIDTH)
 	clauset_df["bias"] = clauset_df["mle"] - clauset_df["actual_lambda"]
-	sns.lineplot(x="n_data", y="bias", data=clauset_df, ci=68, color=SECONDARY_COLOR, linewidth=LINEWIDTH)
+	sns.lineplot(x="n_data", y="bias", data=clauset_df, ci=68, color=SECONDARY_COLOR, linewidth=LINEWIDTH, linestyle="dashdot")
 	plt.xscale("log")
 	plt.xlabel("$N$")
 	plt.ylabel("Bias")
@@ -97,7 +97,7 @@ def plot_wabc_vs_clauset_N():
 	sns.lineplot(x="n_data", y="variance", data=wabc_grouped, color=PRIMARY_COLOR, linewidth=LINEWIDTH)
 
 	clauset_grouped = clauset_df.groupby('n_data').agg(variance=("mle", "var")).reset_index()
-	sns.lineplot(x="n_data", y="variance", data=clauset_grouped, color=SECONDARY_COLOR, linewidth=LINEWIDTH)
+	sns.lineplot(x="n_data", y="variance", data=clauset_grouped, color=SECONDARY_COLOR, linewidth=LINEWIDTH, linestyle="dashdot")
 
 	plt.xlabel("$N$")
 	plt.ylabel("Variance")
@@ -108,7 +108,7 @@ def plot_wabc_vs_clauset_N():
 	plt.tight_layout()
 	
 
-	plt.savefig("images/wabc_linear_vs_clauset_N.png")
+	plt.savefig("images/wabc_linear_vs_clauset_N.png", dpi=300)
 
 	plt.show()
 

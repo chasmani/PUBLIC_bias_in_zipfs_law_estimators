@@ -9,6 +9,8 @@ import matplotlib.pyplot as plt
 
 from utilities.probability_distributions import get_probabilities_power_law_finite_event_set
 
+from design_scheme import PRIMARY_COLOR, SECONDARY_COLOR, TERTIARY_COLOR, POINT_SIZE, LINEWIDTH
+
 
 def get_raw_data_with_ranks(exponent, W, N):
 
@@ -64,24 +66,22 @@ def plot_rank_frequency_and_prob_dist_and_ranked_data():
 
 	# Plot prob distribution
 	ps = get_probabilities_power_law_finite_event_set(lamb, W)
-	plt.plot(range(1, W+1), ps, linestyle="dashed", linewidth=3, label="Probability Distribution")
-
-
+	plt.plot(range(1, W+1), ps, linestyle="dashed", linewidth=3, label="Probability Distribution", color=PRIMARY_COLOR)
 	# Plot data with known ranks
-	plt.scatter(range(1, W+1), ms, s=50, alpha=0.5, label="A priori ranks")
+	plt.scatter(range(1, W+1), ms, s=POINT_SIZE, alpha=0.5, label="A priori ranks", color=PRIMARY_COLOR)
 
 	# Plot rank-frequency data
-	plt.scatter(range(1,W+1), ns, s=50, marker="x", color="red", label="Empirical ranks")
+	plt.scatter(range(1,W+1), ns, s=POINT_SIZE, marker="x", color=SECONDARY_COLOR, label="Empirical ranks")
 
 	plt.xscale("log")
 	plt.yscale("log")
 
-	plt.xlabel("rank")
-	plt.ylabel("probability/frequency")
+	plt.xlabel("Rank")
+	plt.ylabel("Probability/frequency")
 
 	plt.legend()
 
-	plt.savefig("images/rank_frequency_vs_prob_dist.png")
+	plt.savefig("images/rank_frequency_vs_prob_dist.png", dpi=300)
 	plt.show()
 
 if __name__=="__main__":

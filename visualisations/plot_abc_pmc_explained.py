@@ -11,6 +11,8 @@ import seaborn as sns
 
 from utilities.data_generators import get_ranked_empirical_counts_from_infinite_power_law
 
+from design_scheme import PRIMARY_COLOR, SECONDARY_COLOR, TERTIARY_COLOR, POINT_SIZE, LINEWIDTH
+
 
 def get_new_tolerance(distances, survival_fraction):
 
@@ -48,8 +50,8 @@ def plot_wasserstein_vs_lamb_simple():
 			top_lambs.append(lambs[i])
 			top_ws.append(wass_ds[i])
 
-	sns.scatterplot(top_lambs, top_ws, color="blue")
-	plt.axhline(tolerance, color="blue", linestyle="--", label=r"$\epsilon$")
+	sns.scatterplot(top_lambs, top_ws, color=PRIMARY_COLOR, s=POINT_SIZE)
+	plt.axhline(tolerance, color=PRIMARY_COLOR, linestyle="--", label=r"$\epsilon$", linewidth=LINEWIDTH)
 	
 
 	plt.ylim(0.06, tolerance*1.3)
@@ -59,7 +61,7 @@ def plot_wasserstein_vs_lamb_simple():
 
 	plt.legend()
 
-	plt.savefig("images/abc-pmc-wasserstein_distance_vs_lamb_N_{}-simple.png".format(N))
+	plt.savefig("images/abc-pmc-wasserstein_distance_vs_lamb_N_{}-simple.png".format(N), dpi=300)
 
 	plt.show()
 
@@ -93,14 +95,14 @@ def plot_kde_of_result_simple():
 
 	var = np.var(top_lambs)
 
-	sns.kdeplot(top_lambs, bw_method=np.sqrt(2))
+	sns.kdeplot(top_lambs, bw_method=np.sqrt(2), color=PRIMARY_COLOR, linewidth=LINEWIDTH)
 
 
 
 	plt.xlabel("$\lambda$")
-	plt.ylabel("proposal distribution, $g(\lambda)$")
+	plt.ylabel("Proposal distribution, $g(\lambda)$")
 
-	plt.savefig("images/abc-pmc-proposal-distribution-simple.png")
+	plt.savefig("images/abc-pmc-proposal-distribution-simple.png", dpi=300)
 
 	plt.show()
 
@@ -122,7 +124,7 @@ def plot_data_and_sims():
 	fig, (ax1, axgap, ax2, ax3, ax4) = plt.subplots(1, 5, sharey=True, sharex=True)
 
 
-	ax1.scatter(ns_ranks, ns_observed)
+	ax1.scatter(ns_ranks, ns_observed, color=PRIMARY_COLOR, s=POINT_SIZE)
 
 	plt.xscale("log")
 	plt.yscale("log")
@@ -137,7 +139,7 @@ def plot_data_and_sims():
 	ns_2 = get_ranked_empirical_counts_from_infinite_power_law(lamb_1, N)
 	ns_2_ranks = range(1, len(ns_2)+1)
 
-	ax2.scatter(ns_2_ranks, ns_2)
+	ax2.scatter(ns_2_ranks, ns_2, color=PRIMARY_COLOR, s=POINT_SIZE)
 
 	ax2.set_title("$\lambda_1 = {}$".format(lamb_1))
 
@@ -149,7 +151,7 @@ def plot_data_and_sims():
 	ns_3 = get_ranked_empirical_counts_from_infinite_power_law(lamb_2, N)
 	ns_3_ranks = range(1, len(ns_3)+1)
 
-	ax3.scatter(ns_3_ranks, ns_3)
+	ax3.scatter(ns_3_ranks, ns_3, color=PRIMARY_COLOR, s=POINT_SIZE)
 
 	ax3.set_title("$\lambda_2 = {}$".format(lamb_2))
 	ax3.set_xlabel("$n_2$")
@@ -159,7 +161,7 @@ def plot_data_and_sims():
 	ns_4 = get_ranked_empirical_counts_from_infinite_power_law(lamb_3, N)
 	ns_4_ranks = range(1, len(ns_4)+1)
 
-	ax4.scatter(ns_4_ranks, ns_4)
+	ax4.scatter(ns_4_ranks, ns_4, color=PRIMARY_COLOR, s=POINT_SIZE)
 
 	ax4.set_title("$\lambda_3 = {}$".format(lamb_3))
 	ax4.set_xlabel("$n_3$")
@@ -181,7 +183,7 @@ def plot_data_and_sims():
 
 
 	
-	plt.savefig("images/abc-pmc-top-part-data-and-sims.png")
+	plt.savefig("images/abc-pmc-top-part-data-and-sims.png", dpi=300)
 	plt.show()
 
 

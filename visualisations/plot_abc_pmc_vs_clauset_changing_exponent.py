@@ -7,6 +7,8 @@ import pandas as pd
 import seaborn as sns
 plt.rcParams["figure.figsize"] = (10,4)
 
+from design_scheme import PRIMARY_COLOR, SECONDARY_COLOR, TERTIARY_COLOR, POINT_SIZE, LINEWIDTH
+
 def plot_wabc_vs_clauset():
 	"""
 	Combine results from csv files and plot them
@@ -70,11 +72,11 @@ def plot_wabc_vs_clauset():
 
 	# Plots
 	plt.subplot(1,3,1)
-	plt.plot(df["actual_lambda"], df["actual_lambda"], label="y=x", linewidth=3, linestyle="dashed", color="r")
+	plt.plot(df["actual_lambda"], df["actual_lambda"], label="y=x", linewidth=LINEWIDTH*2, linestyle="dashed", color=TERTIARY_COLOR, alpha=0.6)
 
-	sns.lineplot(x="actual_lambda", y="mle", data=wabc_df, ci=68, label="WABC-PMC", color="blue")
+	sns.lineplot(x="actual_lambda", y="mle", data=wabc_df, ci=68, label="ABC-PMC", color=PRIMARY_COLOR, linewidth=LINEWIDTH)
 
-	sns.lineplot(x="actual_lambda", y="mle", data=clauset_df, ci=68, label="Clauset et al", color="orange")
+	sns.lineplot(x="actual_lambda", y="mle", data=clauset_df, ci=68, label="Clauset et al", color=SECONDARY_COLOR, linewidth=LINEWIDTH, linestyle="dashdot")
 
 	plt.xlabel("$\lambda$")
 	plt.ylabel("$E(\hat{\lambda})$")
@@ -83,9 +85,9 @@ def plot_wabc_vs_clauset():
 
 	plt.subplot(1,3,2)
 
-	sns.lineplot(x="actual_lambda", y="bias", data=wabc_df, ci=68, color="blue")
+	sns.lineplot(x="actual_lambda", y="bias", data=wabc_df, ci=68, color=PRIMARY_COLOR, linewidth=LINEWIDTH)
 	clauset_df["bias"] = clauset_df["mle"] - clauset_df["actual_lambda"]
-	sns.lineplot(x="actual_lambda", y="bias", data=clauset_df, ci=68, color="orange")
+	sns.lineplot(x="actual_lambda", y="bias", data=clauset_df, ci=68, color=SECONDARY_COLOR, linewidth=LINEWIDTH, linestyle="dashdot")
 
 	plt.xlabel("$\lambda$")
 	plt.ylabel("Bias")
@@ -94,10 +96,10 @@ def plot_wabc_vs_clauset():
 	plt.subplot(1,3,3)
 
 	wabc_grouped = wabc_df.groupby('actual_lambda').agg(variance=("mle", "var")).reset_index()
-	sns.lineplot(x="actual_lambda", y="variance", data=wabc_grouped, color="blue")
+	sns.lineplot(x="actual_lambda", y="variance", data=wabc_grouped, color=PRIMARY_COLOR, linewidth=LINEWIDTH)
 
 	clauset_grouped = clauset_df.groupby('actual_lambda').agg(variance=("mle", "var")).reset_index()
-	sns.lineplot(x="actual_lambda", y="variance", data=clauset_grouped, color="orange")
+	sns.lineplot(x="actual_lambda", y="variance", data=clauset_grouped, color=SECONDARY_COLOR, linewidth=LINEWIDTH, linestyle="dashdot")
 
 	plt.xlabel("$\lambda$")
 	plt.ylabel("Variance")
@@ -107,7 +109,7 @@ def plot_wabc_vs_clauset():
 	plt.tight_layout()
 	
 
-	plt.savefig("images/wabc_linear_vs_clauset_exponents.png")
+	plt.savefig("images/wabc_linear_vs_clauset_exponents.png", dpi=300)
 
 	plt.show()
 
