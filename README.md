@@ -1,12 +1,12 @@
 # Bias in Zipf's Law Estimators
 
-Code for the pubication "Bias in Zipf's Law Estimators".
+Code for the publication [Bias in Zipf's Law Estimators](https://www.nature.com/articles/s41598-021-96214-w.pdf?proof=t%2Btarget%3D).
 
 ### data 
-Data used and generated during the project
+Data used and generated during the project.
 
 ### simulations
-Scripts to run simulations such as simulating data to test estimator bias
+Scripts to run simulations such as simulating data to test estimator bias.
 
 ### utilities
 Includes the code to run various estimators. Including Clauset et al's MLE, Hanel et al's MLE, and approximate Bayesian computation population monte carlo. 
